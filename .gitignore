@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Python virtual environment
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build output
+build/
+dist/
+*.egg-info/
+
+# MongoDB data
+data/db/
+mongodb.log
+mongodb.msi
+mongodb.zip
+mongodb-win32-x86_64-windows-8.0.5/
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+htmlcov/
+.coverage
+.coverage.*
+.coverage.*.*
+coverage.xml
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Firebase admin SDK key (should never be committed)
+*-adminsdk-*.json
+
+# Large binary files
+*.zip
+*.msi
+
+# Test reports (optional - keep minimal)
+test_reports/pytest/
