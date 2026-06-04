@@ -1,0 +1,118 @@
+{
+  "theme": "light",
+  "archetype": "Archetype 1 (Organic & Earthy)",
+  "color_palette": {
+    "primary": "#2d6a4f",
+    "primary_hover": "#1b4332",
+    "background": "#ffffff",
+    "surface": "#f8fdf9",
+    "text_main": "#1a1a1a",
+    "text_muted": "#4a4a4a",
+    "accent": "#40916c",
+    "border": "#e5e7eb",
+    "success": "#16a34a",
+    "danger": "#ef4444"
+  },
+  "typography": {
+    "heading_font": "Outfit",
+    "body_font": "Inter",
+    "scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight font-light",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-medium",
+      "h3": "text-xl sm:text-2xl font-medium",
+      "body": "text-base leading-relaxed"
+    }
+  },
+  "layout_and_spacing": {
+    "philosophy": "Generous Spacing Philosophy, padding p-8 to p-16 to give luxurious feel.",
+    "grid_strategy": "Mobile-first, single column to responsive multi-column. Product images and checkout forms prominently displayed."
+  },
+  "components": {
+    "cta_buttons": "Large, high contrast (Primary Green), hover slight lift (-translate-y-1) and shadow-lg. Rounded moderately (rounded-md).",
+    "cards": "Subtle border (border-gray-200), max 8px radius, no heavy shadows. Flat solid surface.",
+    "trust_badges": "Minimalist icons in a row with muted text underneath. Free shipping, COD, 14-days return.",
+    "product_gallery": "Left side product image, sticky right side product details, sticky CTA on mobile.",
+    "countdown_timer": "Subtle but clear text or inline component. Not annoying. E.g., 'Oferta expira in: 02:15:30'."
+  },
+  "interactions_and_motion": {
+    "hover": "Subtle translate and shadow for interactive elements.",
+    "entrance": "Framer motion fade in and slide up (y: 20 -> 0) for lists and sections.",
+    "accessibility": "Respect prefers-reduced-motion."
+  },
+  "media": {
+    "logo_url": "https://customer-assets.emergentagent.com/job_4f5663df-e047-4453-96b3-5db49cbfe3b0/artifacts/lztut452_677835844_122107724324823387_8143964586667423050_n.jpg",
+    "hero_background": "https://static.prod-images.emergentagent.com/jobs/4f5663df-e047-4453-96b3-5db49cbfe3b0/images/2940b7dc8b4ea228800e670e8c744b6cb3a3c18c6d6f4dba62f70d61a698fdb9.png",
+    "demo_products": [
+      {
+        "id": "1",
+        "name": "Ser Facial Organic Revitalizant",
+        "price": 129.99,
+        "old_price": 189.99,
+        "image": "https://images.unsplash.com/photo-1770048792339-d8f8d8d2dbeb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwzfHxvcmdhbmljJTIwZ3JlZW4lMjBza2luY2FyZSUyMGNvc21ldGljJTIwYm90dGxlJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NzkwNDE1MzN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Un ser natural cu extracte din plante, perfect pentru o piele stralucitoare.",
+        "benefits": ["Hidratare profunda", "Ingrediente 100% naturale", "Efect anti-aging"],
+        "stock": 14,
+        "reviews": 4.8
+      },
+      {
+        "id": "2",
+        "name": "Set 3 Creme Hidratante Naturale",
+        "price": 249.99,
+        "old_price": 320.00,
+        "image": "https://images.unsplash.com/photo-1611930021559-4a5cb5c38da3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHw0fHxvcmdhbmljJTIwZ3JlZW4lMjBza2luY2FyZSUyMGNvc21ldGljJTIwYm90dGxlJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NzkwNDE1MzN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Rutina completa de ingrijire cu extracte botanice. Revitalizare zilnica.",
+        "benefits": ["Rutina completa", "Absorbtie rapida", "Pentru toate tipurile de ten"],
+        "stock": 5,
+        "reviews": 4.9
+      },
+      {
+        "id": "3",
+        "name": "Sampon Purificator cu Aloe",
+        "price": 89.99,
+        "old_price": 110.00,
+        "image": "https://images.unsplash.com/photo-1747858989102-cca0f4dc4a11?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxvcmdhbmljJTIwZ3JlZW4lMjBza2luY2FyZSUyMGNvc21ldGljJTIwYm90dGxlJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NzkwNDE1MzN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Ofera parului tau un refresh natural, fara sulfati sau parabeni.",
+        "benefits": ["Curatare blanda", "Fara sulfati", "Aroma proaspata"],
+        "stock": 21,
+        "reviews": 4.7
+      }
+    ]
+  },
+  "pages": {
+    "homepage": {
+      "sections": [
+        "Hero: Headline with value prop + CTA to scroll to products. Uses hero_background image with subtle light overlay.",
+        "Trust Bar: 3 columns (Livrare Rapida, Plata la Livrare, Retur usor).",
+        "Product Grid: List of demo products with image, title, price, and 'Cumpara Acum' button linking to product landing page.",
+        "FAQ: Accordion with common questions.",
+        "Footer: Minimalist footer with copyright and links."
+      ]
+    },
+    "product_landing_page": {
+      "sections": [
+        "Product View: Left - Large high quality image. Right - Title, Price (highlighted), Stars/Reviews snippet, Urgency (Countdown, Limited Stock - e.g. 'Doar X ramase in stoc'). Big CTA 'Comanda acum - Plata la livrare' (anchor to checkout), Benefits list.",
+        "Social Proof: Customer reviews with stars and comments.",
+        "Order Form: Paperform embed placeholder section. Use an iframe or div simulating the COD form with a prop or placeholder for the real Paperform link.",
+        "Trust Badges: Placed near the order form."
+      ]
+    },
+    "admin_dashboard": {
+      "sections": [
+        "Login screen.",
+        "Dashboard layout with Sidebar.",
+        "Products table (CRUD operations)."
+      ]
+    }
+  },
+  "testing": {
+    "required_attributes": "Add data-testid on all interactive elements (buttons, inputs, links, etc.)"
+  },
+  "instructions_to_main_agent": [
+    "Use Lucide-react for icons.",
+    "Implement product landing pages as dynamic route (e.g., /product/:id).",
+    "Ensure 'Comanda acum' CTA gracefully scrolls to the Paperform embed section or opens it in a dialog.",
+    "Use Framer Motion for entrance animations (e.g., product cards staggering in, hero text sliding up).",
+    "Implement a realistic countdown timer (e.g., ending at midnight or a fixed duration).",
+    "Admin dashboard requires basic auth context and CRUD logic for products."
+  ]
+}

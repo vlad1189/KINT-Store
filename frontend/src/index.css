@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+    color: #09090b;
+}
+
+h1, h2, h3, h4, h5, .font-display {
+    font-family: 'Archivo', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 240 6% 6%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 6% 6%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 6% 6%;
+        --primary: 89 57% 42%;            /* brand-500 grass green */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 240 5% 96%;
+        --secondary-foreground: 240 6% 10%;
+        --muted: 240 5% 96%;
+        --muted-foreground: 240 4% 35%;
+        --accent: 89 60% 95%;
+        --accent-foreground: 89 57% 25%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 240 6% 90%;
+        --input: 240 6% 90%;
+        --ring: 89 57% 42%;
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    * { @apply border-border; }
+    body { @apply bg-background text-foreground; }
+}
+
+html { scroll-behavior: smooth; }
+
+.text-balance { text-wrap: balance; }
+
+/* Pattern utilities */
+.bg-grid {
+    background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+.bg-grid-dark {
+    background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+.bg-noise {
+    background-image: radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 4px 4px;
+}
+
+/* Custom selection */
+::selection { background-color: #74b832; color: white; }
+
+/* Shimmer gradient text */
+.shimmer-text {
+    background: linear-gradient(90deg, #5a9624 0%, #74b832 25%, #e6f5d0 50%, #74b832 75%, #5a9624 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+@layer base {
+    [data-debug-wrapper="true"] { display: contents !important; }
+}
