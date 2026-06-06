@@ -6,7 +6,8 @@ import {
   Wrench, Car, Sparkles, Home as HomeIcon, Smartphone, Dumbbell, ChefHat,
   Baby, PawPrint, Leaf, Shirt, Heart, ChevronRight, Eye
 } from "lucide-react";
-import api from "../lib/api";
+import { collection, query, where, getDocs, limit, doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import CountdownTimer from "../components/CountdownTimer";
 import PaperformEmbed from "../components/PaperformEmbed";
 import Reviews from "../components/Reviews";
@@ -41,11 +42,28 @@ const ProductLanding = () => {
   const [viewers] = useState(() => 7 + Math.floor(Math.random() * 14));
 
   useEffect(() => {
-    setLoading(true);
-    api.get(`/products/${slug}`)
-      .then((r) => { setProduct(r.data); setActiveImg(0); window.scrollTo({ top: 0 }); })
-      .catch(() => setProduct(null))
-      .finally(() => setLoading(false));
+    const fetchProduct = async () => {
+      setLoading(true);
+      try {
+        const productsRef = collection(db, "products");
+        const q = query(productsRef, where("slug", "==", slug), limit(1));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          setProduct({ id: doc.id, ...doc.data() });
+          setActiveImg(0);
+          window.scrollTo({ top: 0 });
+        } else {
+          setProduct(null);
+        }
+      } catch (e) {
+        console.error("Error fetching product:", e);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProduct();
   }, [slug]);
 
   if (loading) {

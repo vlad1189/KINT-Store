@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, ShieldCheck, Truck, Star, Zap, Users } from "lucide-react";
-import api from "../lib/api";
+import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { db } from "../firebase";
 import ProductCard from "../components/ProductCard";
 import FAQ from "../components/FAQ";
 import Reviews from "../components/Reviews";
@@ -11,10 +12,34 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get("/products")
-      .then((r) => setProducts(r.data))
-      .catch((e) => console.error(e))
-      .finally(() => setLoading(false));
+    const fetchProducts = async () => {
+      try {
+        const productsRef = collection(db, "products");
+        const q = query(
+          productsRef,
+          where("active", "==", true),
+          limit(200)
+        );
+        const querySnapshot = await getDocs(q);
+        const productsList = [];
+        querySnapshot.forEach((doc) => {
+          productsList.push({ id: doc.id, ...doc.data() });
+        });
+        // Sort by created_at descending
+        productsList.sort((a, b) => {
+          const dateA = a.created_at ? new Date(a.created_at) : new Date(0);
+          const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+          return dateB - dateA;
+        });
+        setProducts(productsList);
+      } catch (e) {
+        console.error("Error fetching products:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   return (

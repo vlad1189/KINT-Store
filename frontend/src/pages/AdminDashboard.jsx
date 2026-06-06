@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import api from "../lib/api";
+import { collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 import { LogOut, Plus, Pencil, Trash2, Loader2, X, Package, Save } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "../components/Logo";
@@ -72,12 +73,23 @@ const AdminDashboard = () => {
     if (!loading && !user) navigate("/admin/login");
   }, [user, loading, navigate]);
 
-  const loadProducts = () => {
+  const loadProducts = async () => {
     setFetching(true);
-    api.get("/admin/products")
-      .then((r) => setProducts(r.data))
-      .catch(() => toast.error("Eroare la încărcare"))
-      .finally(() => setFetching(false));
+    try {
+      const productsRef = collection(db, "products");
+      const q = query(productsRef, orderBy("created_at", "desc"));
+      const querySnapshot = await getDocs(q);
+      const productsList = [];
+      querySnapshot.forEach((doc) => {
+        productsList.push({ id: doc.id, ...doc.data() });
+      });
+      setProducts(productsList);
+    } catch (e) {
+      console.error("Error loading products:", e);
+      toast.error("Eroare la încărcare");
+    } finally {
+      setFetching(false);
+    }
   };
 
   useEffect(() => { if (user) loadProducts(); }, [user]);
@@ -123,19 +135,30 @@ const AdminDashboard = () => {
         solution_images: Array.isArray(editing.solution_images)
           ? editing.solution_images
           : String(editing.solution_images || "").split("\n").map(s => s.trim()).filter(Boolean),
+        updated_at: serverTimestamp(),
       };
+      
       if (editing.id) {
-        await api.put(`/admin/products/${editing.id}`, payload);
+        // Update existing product
+        const productRef = doc(db, "products", editing.id);
+        await updateDoc(productRef, payload);
         toast.success("Produs actualizat");
       } else {
-        await api.post("/admin/products", payload);
+        // Create new product
+        const productRef = doc(collection(db, "products"));
+        const newPayload = {
+          ...payload,
+          created_at: serverTimestamp(),
+          slug: payload.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        };
+        await setDoc(productRef, newPayload);
         toast.success("Produs creat");
       }
       closeForm();
       loadProducts();
     } catch (err) {
-      const detail = err?.response?.data?.detail;
-      toast.error(typeof detail === "string" ? detail : "Eroare la salvare");
+      console.error("Error saving product:", err);
+      toast.error("Eroare la salvare");
     } finally {
       setSaving(false);
     }
@@ -144,10 +167,11 @@ const AdminDashboard = () => {
   const onDelete = async (p) => {
     if (!window.confirm(`Ștergi produsul "${p.name}"?`)) return;
     try {
-      await api.delete(`/admin/products/${p.id}`);
+      await deleteDoc(doc(db, "products", p.id));
       toast.success("Produs șters");
       loadProducts();
-    } catch {
+    } catch (err) {
+      console.error("Error deleting product:", err);
       toast.error("Eroare la ștergere");
     }
   };
